@@ -6,7 +6,7 @@ import type { FightStore } from '../stores/fightStore'
 
 const Damage = Skill.compose({
   props: {
-    damageImpact: 1,
+    healPower: 1,
     staminaCost: 1,
   },
   methods: {
@@ -15,7 +15,7 @@ const Damage = Skill.compose({
 })
 
 function execute(fight: FightStore) {
-  fight.defender.damage(this.damageImpact)
+  fight.attacker.damage(-(this.healPower))
   fight.attacker.tire(this.staminaCost)
 }
 
