@@ -2,15 +2,19 @@
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-elements'
+import { Actions } from 'react-native-router-flux'
 
 import Background from '../components/Background'
 
-export default class App extends Component<void, Props, void> {
+export default class App extends Component {
+  onPlay = () => {
+    Actions.fight()
+  }
   render() {
     return (
       <Background image={require('../../assets/img/travel.jpg')}>
         <View style={styles.container}>
-          <Button title="Dude, I wanna play!" raised />
+          <Button title="Dude, I wanna play!" raised large onPress={this.onPlay} />
         </View>
       </Background>
     )
@@ -20,7 +24,6 @@ export default class App extends Component<void, Props, void> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'flex-end',
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'center',
+  },
 })
