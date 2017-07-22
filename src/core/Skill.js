@@ -2,11 +2,9 @@
 import compose from '@stamp/it'
 
 const Skill = compose({
-  statics: {
-    withName(name: string) {
-      return this.props({ name })
-    },
-  },
+  init(props) {
+    Object.assign(this, props)
+  }
 })
 
 export default Skill

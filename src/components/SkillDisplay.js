@@ -3,12 +3,12 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { TouchableHighlight, StyleSheet, Image, View } from 'react-native'
 
-function SkillDisplay({ skill }) {
+function SkillDisplay({ skill, onActivate }) {
   const { name } = skill
 
   return (
     <View style={styles.skillWrapper}>
-      <TouchableHighlight onPress={() => console.log('TODO BIATCHEEES')}>
+      <TouchableHighlight onPress={onActivate}>
         <Image source={require('../../assets/img/head-1.png')} style={styles.skill} />
       </TouchableHighlight>
     </View>

@@ -18,13 +18,14 @@ type Props = {
     const {
       attacker,
       defender,
+      activateSkill,
     } = this.props.fightStore
     return (
 
       <Background image={require('../../assets/img/travel.jpg')}>
         <View style={styles.container}>
           <FighterDisplay defender fighter={defender} />
-          <FighterDisplay fighter={attacker} />
+          <FighterDisplay fighter={attacker} activateSkill={activateSkill(attacker)} />
         </View>
       </Background>
     )

@@ -3,10 +3,10 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { StyleSheet, Image, Text, View } from 'react-native'
 
-import StatsBar from './StatsBar';
+import StatsBar from './StatsBar'
 import SkillDisplay from './SkillDisplay'
 
-function FighterDisplay({ defender, fighter }) {
+function FighterDisplay({ defender, fighter, activateSkill }) {
   const { character, health, stamina } = fighter
   return (
     <View style={[styles.dashboard, defender && styles.defender]}>
@@ -22,7 +22,9 @@ function FighterDisplay({ defender, fighter }) {
       </View>
       {!defender &&
         <View style={styles.skills}>
-          {character.skills.map(skill => <SkillDisplay key={skill} skill={skill} />)}
+          {character.faction.skills.map(skill => (
+            <SkillDisplay key={skill.name} skill={skill} onActivate={() => activateSkill(skill)} />
+          ))}
         </View>
       }
     </View>
