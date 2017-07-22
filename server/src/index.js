@@ -7,6 +7,10 @@ import initializeDb from './db';
 import middleware from './middleware';
 import api from './api';
 import config from './config.json';
+import errors from './lib/errors';
+import mocks from './mocks'
+
+global.__DEV__ = process.env.NODE_ENV === 'dev'
 
 const app = express();
 app.server = http.createServer(app);
@@ -24,16 +28,23 @@ app.use(bodyParser.json({
 }));
 
 // connect to db
-initializeDb( db => {
+initializeDb(db => {
 
 	// internal middleware
-	app.use(middleware({ config, db }));
+	app.use(middleware({ config, db }, app));
 
 	// api router
 	app.use('/api', api({ config, db }));
+	app.use('/mocks', mocks({ config, db }))
+	app.use((req, res, next) => {
+		errors.throw({error: {
+			status: 404, message: `No endpoint "${req.originalUrl}" exists, bitch`
+		}, res, next})
+	})
+	app.use(errors.handle)
 
 	app.server.listen(process.env.PORT || config.port, () => {
-		console.log(`It has begain on port ${app.server.address().port}!`);
+		console.log(`===> It has begain on port ${app.server.address().port}!`);
 	});
 });
 
