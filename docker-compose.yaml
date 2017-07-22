@@ -1,0 +1,6 @@
+mongodb:
+  image: 'mvertes/alpine-mongo'
+  ports:
+    - '27017:27017'
+  volumes:
+    - ./data/dev_db:/data/db
