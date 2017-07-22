@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet } from 'react-native'
 
-const Background = ({ children, image }) => (
-  <Image source={image} style={styles.container}>
+const Background = ({ children, image, onPress }) => (
+  <Image source={image} style={styles.container} onPress={onPress}>
     {children}
   </Image>
 )

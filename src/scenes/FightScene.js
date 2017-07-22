@@ -15,17 +15,6 @@ type Props = {
 
 @inject('fightStore')
 @observer export default class App extends Component<void, Props, void> {
-  playSound = async () => {
-    await Audio.setIsEnabledAsync(true)
-    const sound = new Audio.Sound()
-    await sound.loadAsync(require('../../assets/sounds/true.mp3'))
-    await sound.playAsync()
-  };
-
-  componentDidMount() {
-    // this.playSound()
-  }
-
   render() {
     const {
       attacker,

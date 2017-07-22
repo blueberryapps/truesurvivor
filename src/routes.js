@@ -6,9 +6,9 @@ import FightScene from './scenes/FightScene'
 
 const routing = () => (
   <Router>
-    <Scene key="main">
-      <Scene key="menu" component={MenuScene} />
-      <Scene key="fight" component={FightScene} />
+    <Scene key="menu">
+      <Scene navTransparent key="menu" component={MenuScene} />
+      <Scene navTransparent back={false} key="fight" component={FightScene} />
     </Scene>
   </Router>
 )
