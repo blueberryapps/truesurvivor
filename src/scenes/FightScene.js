@@ -2,11 +2,11 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { StyleSheet, View } from 'react-native'
-import { Constants } from 'expo'
 
 import type { FightStore } from '../stores/fightStore'
 
 import { FighterDisplay } from '../components'
+import Background from '../components/Background'
 
 type Props = {
   fightStore: FightStore
@@ -20,10 +20,13 @@ type Props = {
       defender,
     } = this.props.fightStore
     return (
-      <View style={styles.container}>
-        <FighterDisplay fighter={attacker} />
-        <FighterDisplay fighter={defender} />
-      </View>
+
+      <Background image={require('../../assets/img/travel.jpg')}>
+        <View style={styles.container}>
+          <FighterDisplay defender fighter={defender} />
+          <FighterDisplay fighter={attacker} />
+        </View>
+      </Background>
     )
   }
 }
@@ -31,8 +34,7 @@ type Props = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-  },
+    alignItems: 'flex-end',
+    justifyContent: 'space-between'
+  }
 })

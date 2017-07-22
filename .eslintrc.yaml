@@ -10,6 +10,8 @@ plugins:
 rules:
   semi: [warn, never]
   no-use-before-define: off
+  global-require: off
+  comma-dangle: off
   # React Native does not support *.jsx extension at all
   react/jsx-filename-extension: off
   react-native/no-unused-styles: 2

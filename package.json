@@ -19,6 +19,7 @@
     "react": "16.0.0-alpha.12",
     "react-native": "^0.45.1",
     "react-native-elements": "^0.15.0",
+    "react-native-progress": "^3.3.0",
     "recompose": "^0.24.0"
   },
   "devDependencies": {
