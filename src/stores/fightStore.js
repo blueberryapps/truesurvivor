@@ -1,13 +1,11 @@
-import { observable, action } from 'mobx'
+import { observable } from 'mobx'
 
-class FightStore {
-  @observable attackerHealth = 100
-  @observable attackerStamina = 100
-  @observable defenderHealth = 100
-  @observable defenderStamina = 100
-  @action damageAttacker(healthDrop) {
-    this.attackerHealth -= healthDrop
-  }
+import Fighter from '../core/Fighter'
+import WhiteHat from '../factions/WhiteHat'
+
+export class FightStore {
+  @observable attacker = new Fighter(WhiteHat({ name: 'Kung Fury' }))
+  @observable defender = new Fighter(WhiteHat({ name: 'Hackerman' }))
 }
 
 export default function createStore() {

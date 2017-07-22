@@ -1,21 +1,28 @@
-import React from 'react'
+// @flow
+import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Constants } from 'expo'
 
+import type { FightStore } from '../stores/fightStore'
+
+import { FighterDisplay } from '../components'
+
+type Props = {
+  fightStore: FightStore
+}
+
 @inject('fightStore')
-@observer export default class App extends React.Component {
+@observer export default class App extends Component<void, Props, void> {
   render() {
     const {
-      attackerHealth,
-      attackerStamina,
-      defenderHealth,
-      defenderStamina,
+      attacker,
+      defender,
     } = this.props.fightStore
     return (
       <View style={styles.container}>
-        <Text>{`Attacker ${attackerHealth} / ${attackerStamina}`}</Text>
-        <Text>{`Defender ${defenderHealth} / ${defenderStamina}`}</Text>
+        <FighterDisplay fighter={attacker} />
+        <FighterDisplay fighter={defender} />
       </View>
     )
   }
