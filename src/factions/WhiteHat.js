@@ -1,13 +1,12 @@
-import Character from '../core/Character'
-import Skill from '../core/Skill'
+import Faction from '../core/Faction'
 import { Damage } from '../skills'
 
-const WhiteHat = Character.compose({
-  configuration: {
-    skills: [
-      Skill.compose(Damage).withName('Hurt him'),
-    ],
-  },
-})
+const WhiteHat = Faction.props({
+  name: 'White hat',
+}).withSkills([
+  new Damage({ name: 'Tickle', damageImpact: 2 }),
+  new Damage({ name: 'Slap', damageImpact: 5 }),
+  new Damage({ name: 'Bash', damageImpact: 10 }),
+])
 
 export default WhiteHat

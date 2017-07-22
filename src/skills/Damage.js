@@ -1,18 +1,13 @@
 // @flow
-import compose from '@stamp/it'
-import { action } from 'mobx'
+import { observable, action } from 'mobx'
 
-import type Fighter from '../core/Fighter'
+import type { FightStore } from '../stores/fightStore'
 
-const Damage = compose({
-  props: {
-    damageImpact: 5,
-  },
-  methods: {
-    @action.bound damageFighter(fighter: Fighter) {
-      fighter.damage(this.damageImpact)
-    },
-  },
-})
+class Damage {
+  @observable damageImpact = 1
+  @action.bound execute(fight: FightStore) {
+    fight.defender.damage(this.damageImpact)
+  }
+}
 
 export default Damage
