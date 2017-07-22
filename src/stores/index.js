@@ -4,7 +4,7 @@ import createAuthStore from './authStore'
 import createFightStore from './fightStore'
 
 enableLogging({
-  predicate: () => true,
+  predicate: () => __DEV__ && Boolean(window.navigator.userAgent),
   action: true,
   reaction: true,
   transaction: true,

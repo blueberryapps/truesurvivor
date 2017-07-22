@@ -49,3 +49,7 @@ export default async function signInToFirebase() {
     console.error(error)
   })
 }
+
+export function signOut() {
+  auth.signOut()
+}

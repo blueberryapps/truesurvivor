@@ -2,7 +2,7 @@
 import { observable, action, computed, autorun, when } from 'mobx'
 import { Actions } from 'react-native-router-flux'
 
-import signInToFirebase, { currentUser } from '../core/Auth'
+import signInToFirebase, { currentUser, signOut } from '../core/Auth'
 
 export class AuthStore {
   @observable isAuthenticating = false
@@ -22,18 +22,30 @@ export class AuthStore {
   @action.bound cancelAuthentication() {
     this.isAuthenticating = false
   }
+  @action.bound logout() {
+    signOut()
+    Actions.auth()
+  }
 }
 
 export default function createStore() {
   const authStore = new AuthStore()
 
-  when(
-    () => authStore.isAuthenticated,
-    () => Actions.menu(),
-  )
+  const disposeRedirect = autorun('auth redirection', () => {
+    if (authStore.isInitializing) {
+      return
+    }
+    if (authStore.isAuthenticated) {
+      Actions.menu()
+      disposeRedirect()
+    } else {
+      Actions.auth()
+    }
+  })
 
-  const dispose = autorun('execute authentication', () => {
+  const dispose = autorun(() => {
     if (!authStore.isInitializing && authStore.isAuthenticating) {
+      console.log('execute authentication')
       signInToFirebase().catch(authStore.cancelAuthentication)
     }
   })

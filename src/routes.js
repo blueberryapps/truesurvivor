@@ -10,7 +10,7 @@ const routing = () => (
   <Router>
     <Scene navTransparent key="menu">
       <Scene key="load" component={Loading} />
-      {/* <Scene navTransparent key="auth" component={AuthScene} /> */}
+      <Scene key="auth" component={AuthScene} />
       <Scene key="menu" component={MenuScene} />
       <Scene key="fight" component={FightScene} />
     </Scene>
