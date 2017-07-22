@@ -48,7 +48,9 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start'
   },
   skills: {
+    flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     marginLeft: 50
   },
   avatar: {

@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { StyleSheet, View } from 'react-native'
+import { Audio } from 'expo'
 
 import type { FightStore } from '../stores/fightStore'
 
@@ -14,14 +15,26 @@ type Props = {
 
 @inject('fightStore')
 @observer export default class App extends Component<void, Props, void> {
+  playSound = async () => {
+    await Audio.setIsEnabledAsync(true)
+    const sound = new Audio.Sound()
+    await sound.loadAsync(require('../../assets/sounds/true.mp3'))
+    await sound.playAsync()
+  };
+
+  componentDidMount() {
+    // this.playSound()
+  }
+
   render() {
     const {
       attacker,
       defender,
       activateSkill,
     } = this.props.fightStore
-    return (
 
+
+    return (
       <Background image={require('../../assets/img/travel.jpg')}>
         <View style={styles.container}>
           <FighterDisplay defender fighter={defender} />
