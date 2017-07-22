@@ -22,8 +22,13 @@ function FighterDisplay({ defender, fighter, activateSkill }) {
       </View>
       {!defender &&
         <View style={styles.skills}>
-          {character.faction.skills.map(skill => (
-            <SkillDisplay key={skill.name} skill={skill} onActivate={() => activateSkill(skill)} />
+          {character.faction.skills.map((skill, index) => (
+            <SkillDisplay
+              index={index}
+              key={skill.name}
+              skill={skill}
+              onActivate={() => activateSkill(skill)}
+            />
           ))}
         </View>
       }

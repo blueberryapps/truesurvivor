@@ -2,7 +2,6 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { StyleSheet, View } from 'react-native'
-import { Audio } from 'expo'
 
 import type { FightStore } from '../stores/fightStore'
 
@@ -21,7 +20,6 @@ type Props = {
       defender,
       activateSkill,
     } = this.props.fightStore
-
 
     return (
       <Background image={require('../../assets/img/travel.jpg')}>

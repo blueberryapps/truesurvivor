@@ -12,9 +12,9 @@ export default class App extends Component {
   }
   render() {
     return (
-      <Background image={require('../../assets/img/travel.jpg')}>
+      <Background image={require('../../assets/img/hoff.jpg')}>
         <View style={styles.container}>
-          <Button title="Dude, I wanna play!" raised large onPress={this.onPlay} />
+          <Button backgroundColor="red" title="Dude, I wanna play!" raised large onPress={this.onPlay} />
         </View>
       </Background>
     )
@@ -25,5 +25,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center'
   },
 })

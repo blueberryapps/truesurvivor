@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { Audio } from 'expo'
+import { Text } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 
 import Background from '../components/Background'

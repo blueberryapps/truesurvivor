@@ -2,6 +2,7 @@
   "name": "TrueSurvivor",
   "displayName": "TrueSurvivor",
   "expo": {
-    "sdkVersion": "18.0.0"
-  }
+    "sdkVersion": "18.0.0",
+    "orientation": "landscape"
+  },
 }
