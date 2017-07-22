@@ -7,9 +7,7 @@ import createStores from './stores'
 
 const stores = createStores()
 
-
 export default function Main() {
-
   return (
     <Provider {...stores}>
       <Routing />

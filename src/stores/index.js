@@ -1,5 +1,6 @@
 import { enableLogging } from 'mobx-logger'
 
+import createAuthStore from './authStore'
 import createFightStore from './fightStore'
 
 enableLogging({
@@ -11,9 +12,11 @@ enableLogging({
 })
 
 function createStores() {
+  const authStore = createAuthStore()
   const fightStore = createFightStore()
 
   return {
+    authStore,
     fightStore,
   }
 }
