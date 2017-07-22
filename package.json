@@ -2,6 +2,7 @@
   "name": "true-survivor",
   "version": "0.0.1",
   "private": true,
+  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
@@ -10,20 +11,28 @@
     "test": "node node_modules/jest/bin/jest.js --watch"
   },
   "dependencies": {
-    "react": "16.0.0-alpha.12",
     "expo": "^18.0.3",
+    "mobx": "^3.2.1",
+    "mobx-logger": "^0.6.0",
+    "mobx-react": "^4.2.2",
+    "react": "16.0.0-alpha.12",
     "react-native": "^0.45.1"
   },
   "devDependencies": {
-    "react-native-scripts": "0.0.50",
-    "jest-expo": "~18.0.0",
-    "react-test-renderer": "16.0.0-alpha.12",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-flow": "^6.23.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.2",
+    "eslint-plugin-flowtype": "^2.35.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
-    "jest": "20.0.4"
+    "eslint-plugin-react-native": "^2.3.2",
+    "flow-bin": "^0.51.0",
+    "jest": "20.0.4",
+    "jest-expo": "~18.0.0",
+    "react-native-scripts": "0.0.50",
+    "react-test-renderer": "16.0.0-alpha.12"
   },
   "jest": {
     "preset": "jest-expo"
