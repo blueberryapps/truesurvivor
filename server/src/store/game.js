@@ -4,11 +4,12 @@ export default class GameState {
   constructor({ p1, p2 }) {
     this.p1 = p1;
     this.p2 = p2;
-    this.on_turn = true;
+    this.on_turn = null;
   }
 
   switch_turn() {
-    this.on_turn = !this.on_turn
+    this.on_turn = this.on_turn === this.p1.cid
+      ? this.p2.cid : this.p1.cid 
   }
 
   finish() {

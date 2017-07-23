@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import initializeDb from './db';
+// import initializeDb from './db';
 import initializeAPI from './api';
 import config from './config.json';
 import socket from 'socket.io';
@@ -39,13 +39,13 @@ app.use(bodyParser.json({
 }));
 
 // connect to db
-initializeDb(db => {
+// initializeDb(db => {
 
-	initializeAPI({ config, db, io, global_store });
+	initializeAPI({ config, io, global_store });
 
 	server.listen(process.env.PORT || config.port, () => {
 		console.log(`===> It has begain on port ${server.address().port}!`);
 	});
-});
+// });
 
 export default app;

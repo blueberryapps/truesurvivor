@@ -4,41 +4,44 @@ import cuid from 'cuid'
 import EventEmitter from 'events';
 import fight_system from './fight_system'
 
-export function Auth({ socket, global_store }) {
+export function Auth({ socket, global_store, local_store }) {
     socket.on('auth', (uid) => {
       if (!global_store.uid_exists(uid)) {
 				const cid = global_store.create_character(uid)
-				global_store.set_session({ my_cid: cid, my_uid: uid })
+				local_store.set_session({ my_cid: cid, my_uid: uid })
 			} else {
-				const { cid } = global_store.get_character_by_uid(uid)
-				global_store.set_session({ my_cid: cid, my_uid: uid })
+				const cid = global_store.get_character_by_uid(uid)
+				local_store.set_session({ my_cid: cid, my_uid: uid })
 			}
     })
 }
 
-export function Character({ store, socket }) {
+export function Character({ global_store, local_store, socket }) {
 	socket.on('update_character', (character_info) => {
-		store.update_character(character_info)
+		global_store.update_character(local_store.uid, character_info)
 	})
 }
 
+const event_emitter = new EventEmitter();
 export function Fight({ local_store, global_store, socket }) {
 	socket.on('find_fight', () => {
 		const {my_cid} = local_store.get_session();
-		const event_emitter = new EventEmitter()
-		global_store.set_status(my_cid, 'ready')
+		global_store.set_status(my_cid, 'ready');
 
 		const lookup = global_store
 			.find_fighter(my_cid)
 			.then((enemy) => {
 				const room = cuid();
+        console.log('found')
 				event_emitter.emit(`${enemy.cid}-join`, { room, p1_cid: my_cid, p2_cid: enemy.cid })
 				event_emitter.emit(`${my_cid.cid}-join`, { room, p1_cid: my_cid, p2_cid: enemy.cid })
 			})
 
 		event_emitter.on(`${my_cid}-join`, ({ room, p1_cid, p2_cid }) => {
 			lookup.cancel();
+
 			global_store.set_status(my_cid, 'fighting');
+      socket.to(room).emit('game_started')
 			socket.join(room);
 			const p1 = global_store.get_character_by_cid(p1_cid)
 			const p2 = global_store.get_character_by_cid(p2_cid)

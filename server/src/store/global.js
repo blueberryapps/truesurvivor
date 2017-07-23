@@ -7,7 +7,16 @@ class GlobalStore {
 
   @action.bound create_character(uid) {
     const character_id = cuid()
-    this.characters.set(character_id, { uid, cid: character_id })
+    this.characters.set(character_id, {
+      uid,
+      cid: character_id,
+      timestamp: Date.now(),
+      ss: 1,
+      health: 100,
+      stamina: 100,
+      status: 'idle'
+    })
+    return character_id;
   }
 
   @action.bound level_up(cid) {
@@ -22,7 +31,7 @@ class GlobalStore {
     const self = this;
     const enemy = this.characters
       .values()
-      .filter(({ status }) => status !== 'ready')
+      // .filter(({ status }) => status !== 'ready')
       .find(({ cid: id }) => cid !== id)
 
       if (enemy) {
@@ -30,6 +39,7 @@ class GlobalStore {
       }
       return new Promise((res, rej) => {
         const i = setInterval(() => {
+          console.log('searching')
           const enemy = self.find_fighter(cid)
           if (enemy) {
             res(enemy);
@@ -44,12 +54,16 @@ class GlobalStore {
       .values()
       .find(({ uid: id }) => id === uid)
 
-    return !matched
+    return !!matched
   }
 
   @action.bound update_character(uid, character_info) {
+    console.log('uid', uid, 'charinf', character_info)
     const cid = this.get_cid(uid);
-    const my_character = this.characters.get(cid);
+    const character = this.characters
+      .values()
+      .find(({ uid: id }) => id === uid)
+    const my_character = this.characters.get(character.cid);
     return this.characters.set(cid, {
       timestamp: Date.now(),
       ss: 1,
@@ -63,7 +77,8 @@ class GlobalStore {
 
   @action.bound get_character_by_uid(uid) {
     const cid = this.get_cid(uid);
-    return this.characters.get(cid);
+    this.characters.get(cid);
+    return cid;
   }
 
   @action.bound get_character_by_cid(cid) {
@@ -76,7 +91,7 @@ class GlobalStore {
       status
     })
   }
-  get_cid(uid) {
+  @action.bound get_cid(uid) {
     const character = this.characters
       .values()
       .find(({ uid: id }) => id === uid)
