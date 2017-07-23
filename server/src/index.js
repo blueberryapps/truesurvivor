@@ -4,16 +4,23 @@ import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import initializeDb from './db';
-import middleware from './middleware';
-import api from './api';
+import initializeAPI from './api';
 import config from './config.json';
-import errors from './lib/errors';
-import mocks from './mocks'
+import socket from 'socket.io';
+import session from 'express-session'
+import Store from './store/global'
 
-global.__DEV__ = process.env.NODE_ENV === 'dev'
+global.__DEV__ = process.env.NODE_ENV === 'dev';
+global.Promise = require('bluebird').Promise;
+
 
 const app = express();
-app.server = http.createServer(app);
+
+const server = http.Server(app)
+
+const io = socket(server);
+
+const global_store = new Store();
 
 // logger
 app.use(morgan('dev'));
@@ -23,6 +30,10 @@ app.use(cors({
 	exposedHeaders: config.corsHeaders
 }));
 
+app.use(session({
+	secret: '1234567890'
+}))
+
 app.use(bodyParser.json({
 	limit : config.bodyLimit
 }));
@@ -30,21 +41,10 @@ app.use(bodyParser.json({
 // connect to db
 initializeDb(db => {
 
-	// internal middleware
-	app.use(middleware({ config, db }, app));
+	initializeAPI({ config, db, io, global_store });
 
-	// api router
-	app.use('/api', api({ config, db }));
-	app.use('/mocks', mocks({ config, db }))
-	app.use((req, res, next) => {
-		errors.throw({error: {
-			status: 404, message: `No endpoint "${req.originalUrl}" exists, bitch`
-		}, res, next})
-	})
-	app.use(errors.handle)
-
-	app.server.listen(process.env.PORT || config.port, () => {
-		console.log(`===> It has begain on port ${app.server.address().port}!`);
+	server.listen(process.env.PORT || config.port, () => {
+		console.log(`===> It has begain on port ${server.address().port}!`);
 	});
 });
 
