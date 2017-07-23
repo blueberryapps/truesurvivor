@@ -1,9 +1,8 @@
 import { observable, action } from 'mobx'
+import { Audio } from 'expo'
 
 import Fighter from '../core/Fighter'
 import WhiteHat from '../factions/WhiteHat'
-import { Audio } from 'expo'
-
 
 const playSound = async () => {
   await Audio.setIsEnabledAsync(true)

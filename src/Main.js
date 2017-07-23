@@ -1,16 +1,22 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
+import { observer, Provider } from 'mobx-react'
 
 import Routing from './routes'
-
+import Loading from './scenes/Loading'
 import createStores from './stores'
 
 const stores = createStores()
 
-export default function Main() {
+function Main() {
+  if (stores.preloadStore.loading) {
+    return <Loading />
+  }
+
   return (
     <Provider {...stores}>
       <Routing />
     </Provider>
   )
 }
+
+export default observer(Main)

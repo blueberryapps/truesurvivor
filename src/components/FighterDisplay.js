@@ -2,46 +2,61 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { StyleSheet, Image, Text, View } from 'react-native'
-
 import StatsBar from './StatsBar'
 import SkillDisplay from './SkillDisplay'
 
-function FighterDisplay({ defender, fighter, activateSkill }) {
-  const { character, health, stamina } = fighter
-  return (
-    <View style={[styles.dashboard, defender && styles.defender]}>
-      <View style={styles.info}>
-        <View>
-          <StatsBar value={health / 100} kind="hp" />
-          <StatsBar value={stamina / 100} kind="stamina" />
+@observer
+export default class FighterDisplay extends React.Component {
+  state = {
+    skillName: ''
+  }
+
+  handleSkill = (skill) => {
+    const { activateSkill } = this.props
+
+    activateSkill(skill)
+    this.setState({ skillName: skill.name })
+  }
+
+  render() {
+    const { fighter: { character, health, stamina }, defender } = this.props
+
+    return (
+      <View style={[styles.dashboard, defender && styles.defender]}>
+        <View style={styles.info}>
+          <View>
+            <StatsBar value={health / 100} kind="hp" />
+            <StatsBar value={stamina / 100} kind="stamina" />
+          </View>
+          <View style={styles.playerInfo}>
+            <Image source={require('../../assets/img/avatar.png')} style={styles.avatar} />
+            <Text style={styles.text}>{character.name}</Text>
+          </View>
         </View>
-        <View style={styles.playerInfo}>
-          <Image source={require('../../assets/img/avatar.png')} style={styles.avatar} />
-          <Text style={styles.text}>{character.name}</Text>
-        </View>
+        {!defender &&
+          <View style={styles.skills}>
+            {character.faction.skills.map((skill, index) => (
+              <SkillDisplay
+                index={index}
+                key={skill.name}
+                skill={skill}
+                onActivate={() => this.handleSkill(skill)}
+              />
+            ))}
+          </View>
+        }
       </View>
-      {!defender &&
-        <View style={styles.skills}>
-          {character.faction.skills.map((skill, index) => (
-            <SkillDisplay
-              index={index}
-              key={skill.name}
-              skill={skill}
-              onActivate={() => activateSkill(skill)}
-            />
-          ))}
-        </View>
-      }
-    </View>
-  )
+    )
+  }
 }
 const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     color: 'white',
+    fontFamily: 'press-start',
     marginLeft: 10,
     backgroundColor: 'rgba(0,0,0,0)',
-    fontSize: 32
+    fontSize: 20
   },
   dashboard: {
     position: 'relative',
@@ -65,7 +80,7 @@ const styles = StyleSheet.create({
   playerInfo: {
     flexDirection: 'row',
     marginTop: 10,
-    alignItems: 'flex-end'
+    alignItems: 'center'
   },
   defender: {
     alignSelf: 'flex-end',
@@ -73,5 +88,3 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   }
 })
-
-export default observer(FighterDisplay)

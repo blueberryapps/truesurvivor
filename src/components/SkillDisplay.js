@@ -1,8 +1,7 @@
 // @flow
 import React from 'react'
 import { observer } from 'mobx-react'
-import { TouchableHighlight, StyleSheet, Image, View } from 'react-native'
-import { Audio } from 'expo'
+import { TouchableHighlight, StyleSheet, Image } from 'react-native'
 
 function SkillDisplay({ skill, onActivate }) {
   const { name } = skill

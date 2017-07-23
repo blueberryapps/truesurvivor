@@ -1,5 +1,5 @@
 // @flow
-import { observable, action, computed, autorun, when } from 'mobx'
+import { observable, action, computed, autorun } from 'mobx'
 import { Actions } from 'react-native-router-flux'
 
 import signInToFirebase, { currentUser, signOut } from '../core/Auth'
@@ -30,18 +30,6 @@ export class AuthStore {
 
 export default function createStore() {
   const authStore = new AuthStore()
-
-  const disposeRedirect = autorun('auth redirection', () => {
-    if (authStore.isInitializing) {
-      return
-    }
-    if (authStore.isAuthenticated) {
-      Actions.menu()
-      disposeRedirect()
-    } else {
-      Actions.auth()
-    }
-  })
 
   const dispose = autorun(() => {
     if (!authStore.isInitializing && authStore.isAuthenticating) {
