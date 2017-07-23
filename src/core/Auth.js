@@ -2,13 +2,19 @@
 import Expo from 'expo'
 import { observable, action } from 'mobx'
 import * as firebase from 'firebase'
+import { firebaseApp } from './Firebase'
 
 import {
   GOOGLE_ANDROID_CLIENT_ID,
   GOOGLE_IOS_CLIENT_ID,
-  FIREBASE_API_KEY,
-  FIREBASE_DOMAIN,
 } from 'react-native-dotenv'
+
+export const currentUser = observable()
+
+const auth = firebase.auth(firebaseApp)
+auth.onAuthStateChanged(action('onAuthStateChanged', (user) => {
+  currentUser.set(user)
+}))
 
 async function signInWithGoogle(): Promise<string | null> {
   try {
@@ -25,18 +31,6 @@ async function signInWithGoogle(): Promise<string | null> {
     return null
   }
 }
-
-const app = firebase.initializeApp({
-  apiKey: FIREBASE_API_KEY,
-  authDomain: FIREBASE_DOMAIN,
-})
-const auth = firebase.auth(app)
-
-export const currentUser = observable()
-
-auth.onAuthStateChanged(action('onAuthStateChanged', (user) => {
-  currentUser.set(user)
-}))
 
 export default async function signInToFirebase() {
   const token = await signInWithGoogle()

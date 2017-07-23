@@ -19,4 +19,10 @@ function Main() {
   )
 }
 
+console.ignoredYellowBox = [
+  'Setting a timer',
+  'Remote debugger',
+  'FIREBASE WARNING: Using an unspecified index',
+]
+
 export default observer(Main)

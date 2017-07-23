@@ -1,9 +1,11 @@
 import compose from '@stamp/it'
+import factions from '../factions/'
 
 const Character = compose({
-  init({ name, faction }) {
+  init({ chid, name, faid }) {
+    this.chid = chid
     this.name = name
-    this.faction = faction
+    this.faction = factions[faid]
   },
   props: {
     skills: [],

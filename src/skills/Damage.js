@@ -10,8 +10,8 @@ const Damage = Skill.compose({
     staminaCost: 1,
   },
   methods: {
-    execute: action(execute)
-  }
+    execute: action(execute),
+  },
 })
 
 function execute(fight: FightStore) {

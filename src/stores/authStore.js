@@ -22,6 +22,7 @@ export class AuthStore {
   @action.bound cancelAuthentication() {
     this.isAuthenticating = false
   }
+  // eslint-disable-next-line class-methods-use-this
   @action.bound logout() {
     signOut()
     Actions.auth()

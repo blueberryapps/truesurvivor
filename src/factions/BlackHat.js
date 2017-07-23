@@ -2,6 +2,7 @@ import Faction from '../core/Faction'
 import { Damage, Heal } from '../skills'
 
 const BlackHat = Faction.props({
+  id: 'black-hat',
   name: 'Black hat',
 }).withSkills([
   Heal({ name: 'Hotfix', healthPower: 10, staminaCost: 10 }),
@@ -10,4 +11,4 @@ const BlackHat = Faction.props({
   Damage({ name: 'Fappening', damageImpact: 10, staminaCost: 10 }),
 ])
 
-export default BlackHat
+export default BlackHat.create()
