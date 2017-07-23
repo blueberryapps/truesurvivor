@@ -6,15 +6,19 @@ import MenuScene from './scenes/MenuScene'
 import CharacterScene from './scenes/CharacterScene'
 import FightScene from './scenes/FightScene'
 import Loading from './scenes/Loading'
+import Win from './scenes/Win'
+import Lose from './scenes/Lose'
 
 const routing = () => (
   <Router>
     <Scene tabs navTransparent key="menu">
-      <Scene key="load" component={Loading} />
-      <Scene key="auth" component={AuthScene} />
-      <Scene key="menu" component={MenuScene} />
+      <Scene hideNavBar key="load" component={Loading} />
+      <Scene hideNavBar key="auth" component={AuthScene} />
+      <Scene hideNavBar key="menu" component={MenuScene} />
       {/* <Scene key="character" component={CharacterScene} /> */}
-      <Scene key="fight" component={FightScene} />
+      <Scene hideNavBar key="fight" component={FightScene} />
+      <Scene hideNavBar key="win" component={Win} />
+      <Scene hideNavBar key="lose" component={Lose} />
     </Scene>
   </Router>
 )

@@ -19,11 +19,11 @@ export default class FighterDisplay extends React.Component {
   }
 
   render() {
-    const { fighter: { character, health, stamina }, defender } = this.props
+    const { active, fighter: { character, health, stamina }, defender } = this.props
 
     return (
       <View style={[styles.dashboard, defender && styles.defender]}>
-        <View style={styles.info}>
+        <View style={[active && styles.active]}>
           <View>
             <StatsBar value={health / 100} kind="hp" />
             <StatsBar value={stamina / 100} kind="stamina" />
@@ -72,6 +72,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginLeft: 50
+  },
+  active: {
+    borderColor: 'yellow',
+    borderStyle: 'solid',
+    borderWidth: 4,
+    padding: 10
   },
   avatar: {
     width: 30,

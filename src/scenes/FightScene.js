@@ -25,7 +25,7 @@ type Props = {
       <Background image={require('../../assets/img/travel.jpg')}>
         <View style={styles.container}>
           <FighterDisplay defender fighter={defender} />
-          <FighterDisplay fighter={attacker} activateSkill={activateSkill(attacker)} />
+          <FighterDisplay active fighter={attacker} activateSkill={activateSkill(attacker)} />
         </View>
       </Background>
     )
